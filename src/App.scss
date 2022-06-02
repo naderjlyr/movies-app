@@ -85,3 +85,10 @@ iframe {
 .header__section {
   @include flex(center, space-between);
 }
+img {
+  color: red;
+}
+svg {
+  fill: red;
+  stroke: red;
+}
