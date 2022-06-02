@@ -12,7 +12,7 @@ const tmdbApi = {
     const url =
       "movie/" +
       request.type +
-      "?apiKey=" +
+      "?api_key=" +
       tmdbConfig.apiKey +
       "&language=en-US&page=" +
       request.page;
@@ -23,7 +23,7 @@ const tmdbApi = {
     const url =
       "tv/" +
       request.type +
-      "?apiKey=" +
+      "?api_key=" +
       tmdbConfig.apiKey +
       "&language=en-US&page=" +
       request.page;
@@ -36,7 +36,7 @@ const tmdbApi = {
         request.category +
         "/" +
         request?.id +
-        "/videos?apiKey=" +
+        "/videos?api_key=" +
         tmdbConfig.apiKey +
         "&language=en-US";
       return axiosClient.get(url);
@@ -49,7 +49,7 @@ const tmdbApi = {
     const url =
       "search/" +
       request.category +
-      "?apiKey=" +
+      "?api_key=" +
       tmdbConfig.apiKey +
       "&language=en-US&query=" +
       request.query +
@@ -61,7 +61,7 @@ const tmdbApi = {
 
   multiple_search: (request: MultiSearchesRequest) => {
     const url =
-      "search/multi?apiKey=" +
+      "search/multi?api_key=" +
       tmdbConfig.apiKey +
       "&language=en-US&query=" +
       request.query +
@@ -77,7 +77,7 @@ const tmdbApi = {
         request.category +
         "/" +
         request.id +
-        "/credits?apiKey=" +
+        "/credits?api_key=" +
         tmdbConfig.apiKey +
         "&language=en-US";
       return axiosClient.get(url);
@@ -92,7 +92,7 @@ const tmdbApi = {
         request.category +
         "/" +
         request.id +
-        "/similar?apiKey=" +
+        "/similar?api_key=" +
         tmdbConfig.apiKey +
         "&language=en-US&page=" +
         request.page;
@@ -108,7 +108,7 @@ const tmdbApi = {
         request.category +
         "/" +
         request.id +
-        "?apiKey=" +
+        "?api_key=" +
         tmdbConfig.apiKey +
         "&language=en-US";
       return axiosClient.get(url);
