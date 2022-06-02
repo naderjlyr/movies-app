@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Slider from "../../components/Slider/Slider";
 import { useAppDispatch, useAppSelector } from "../../features/hooks/hooks";
 import { selectMovies, fetchMovies } from "../../features/slice/moviesSlice";
-import { ThemeProvider, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import "./Home.scss";
 type Props = {};
@@ -22,7 +21,6 @@ const Home = (props: Props) => {
   return (
     <>
       <div className="page-title">Home</div>
-      <Slider />
       <div className="category-box container">
         <div className="section mb-3">
           <div className="header__section mb-2">
