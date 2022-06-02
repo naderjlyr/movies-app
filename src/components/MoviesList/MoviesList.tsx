@@ -1,38 +1,44 @@
-import React from "react";
+import React, { FC } from "react";
 import "./MoviesList.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 import tmdbApi from "../../api/tmdbApi";
-import { MediaContent } from "../../models/interfaces/movies";
-
+import {
+  MediaContent,
+  PopularMovies,
+  PopularMoviesResults,
+} from "../../models/interfaces/movies";
+import { useAppSelector } from "../../features/hooks/hooks";
+import { selectMovies } from "../../features/slice/moviesSlice";
+import MovieCard from "../MovieCard/MovieCard";
 interface IMoviesList {
-  category: string;
-  type: string;
-  id?: number;
+  moviesType: MediaContent[];
 }
-
-const MoviesList = (props: IMoviesList) => {
-  const [items, setItems] = React.useState<MediaContent[]>([]);
+const MoviesList: FC<IMoviesList> = ({ moviesType }) => {
   const [loading, setLoading] = React.useState<boolean>(true);
 
+  const renderMovieItems = moviesType.map((movie) => {
+    return (
+      <SwiperSlide key={movie.id}>
+        <MovieCard key={movie.id} movie={movie} />
+      </SwiperSlide>
+    );
+  });
   return (
     <div className="movies-list">
-      {/* <Swiper grabCursor={true} spaceBetween={15} slidesPerView={"auto"}>
-        {!loading
-          ? items.map((item, index) => (
-              <SwiperSlide key={index}>
-                <MovieCard item={item} category={props.category} />
-              </SwiperSlide>
-            ))
-          : skeletonData.map((item, index) => (
-              <SwiperSlide key={index}>
-                <MovieCard
-                  item={item}
-                  category={props.category}
-                  loading={true}
-                />
-              </SwiperSlide>
-            ))}
-      </Swiper> */}
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation
+        pagination={{ clickable: true }}
+        spaceBetween={15}
+        slidesPerView={3}
+      >
+        {renderMovieItems}
+      </Swiper>
     </div>
   );
 };

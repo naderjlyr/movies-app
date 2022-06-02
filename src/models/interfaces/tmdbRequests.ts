@@ -2,7 +2,12 @@ export interface MovieRequest {
   type: "upcoming" | "popular" | "top_rated" | string;
   page: number;
 }
-
+export enum FetchState {
+  LOADING = "loading",
+  DEFAULT = "idle",
+  SUCCESS = "success",
+  ERROR = "error",
+}
 export interface TVRequest {
   type: "popular" | "top_rated" | "on_the_air" | string;
   page: number;
