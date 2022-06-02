@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import "./MoviesList.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
+import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -31,9 +31,8 @@ const MoviesList: FC<IMoviesList> = ({ moviesType }) => {
   return (
     <div className="movies-list">
       <Swiper
-        modules={[Navigation, Pagination]}
+        modules={[Navigation]}
         navigation
-        pagination={{ clickable: true }}
         spaceBetween={15}
         slidesPerView={3}
       >

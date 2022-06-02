@@ -22,7 +22,7 @@ const Home = (props: Props) => {
   return (
     <>
       <div className="page-title">Home</div>
-      <Slider />
+      <Slider moviesType={popularMovies} />
       <div className="category-box container">
         <div className="section mb-3">
           <div className="header__section mb-2">
