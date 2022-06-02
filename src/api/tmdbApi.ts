@@ -1,6 +1,5 @@
 import {
   MovieRequest,
-  TVRequest,
   CategoryRequest,
   MultiSearchesRequest,
 } from "../models/interfaces/tmdbRequests";
@@ -17,32 +16,6 @@ const tmdbApi = {
       "&language=en-US&page=" +
       request.page;
     return axiosClient.get(url);
-  },
-
-  getTvList: (request: TVRequest) => {
-    const url =
-      "tv/" +
-      request.type +
-      "?api_key=" +
-      tmdbConfig.apiKey +
-      "&language=en-US&page=" +
-      request.page;
-    return axiosClient.get(url);
-  },
-
-  getVideos: (request: CategoryRequest) => {
-    try {
-      const url =
-        request.category +
-        "/" +
-        request?.id +
-        "/videos?api_key=" +
-        tmdbConfig.apiKey +
-        "&language=en-US";
-      return axiosClient.get(url);
-    } catch (error) {
-      console.log(error);
-    }
   },
 
   search: (request: CategoryRequest) => {
@@ -69,52 +42,6 @@ const tmdbApi = {
       request.page +
       "&include_adult=false";
     return axiosClient.get(url);
-  },
-
-  credits: (request: CategoryRequest) => {
-    try {
-      const url =
-        request.category +
-        "/" +
-        request.id +
-        "/credits?api_key=" +
-        tmdbConfig.apiKey +
-        "&language=en-US";
-      return axiosClient.get(url);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
-  similar: (request: CategoryRequest) => {
-    try {
-      const url =
-        request.category +
-        "/" +
-        request.id +
-        "/similar?api_key=" +
-        tmdbConfig.apiKey +
-        "&language=en-US&page=" +
-        request.page;
-      return axiosClient.get(url);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
-  detail: (request: CategoryRequest) => {
-    try {
-      const url =
-        request.category +
-        "/" +
-        request.id +
-        "?api_key=" +
-        tmdbConfig.apiKey +
-        "&language=en-US";
-      return axiosClient.get(url);
-    } catch (error) {
-      console.log(error);
-    }
   },
 };
 

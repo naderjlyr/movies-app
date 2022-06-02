@@ -8,10 +8,6 @@ export enum FetchState {
   SUCCESS = "success",
   ERROR = "error",
 }
-export interface TVRequest {
-  type: "popular" | "top_rated" | "on_the_air" | string;
-  page: number;
-}
 
 export interface CategoryRequest {
   category: "movie" | "tv" | string;

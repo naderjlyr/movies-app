@@ -47,45 +47,10 @@ export interface MediaContent {
   runtime: number | string;
   production_countries: any;
   episode_run_time: any;
-  last_episode_to_air: Episode;
   number_of_seasons: number;
-  seasons: Season[];
 }
-
-//   export interface IVideoTemp {
-//     id: number;
-//     poster_path: string | null;
-//     title?: string;
-//     backdrop_path: string | null;
-//     name?: string;
-//     release_date?: string;
-//     first_air_date?: string;
-//   }
 
 interface Genres {
   id: number;
   name: string;
-}
-
-interface Episode {
-  air_date: string;
-  episode_number: number;
-  id: number;
-  name: string;
-  overview: string;
-  production_code: string;
-  season_number: number;
-  still_path: string;
-  vote_average: number;
-  vote_count: number;
-}
-
-interface Season {
-  air_date: string;
-  episode_count: number;
-  id: number;
-  name: string;
-  overview: string;
-  poster_path: string;
-  season_number: number;
 }

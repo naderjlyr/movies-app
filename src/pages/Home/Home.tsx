@@ -6,7 +6,7 @@ import MoviesList from "../../components/MoviesList/MoviesList";
 import "./Home.scss";
 type Props = {};
 
-const Home = (props: Props) => {
+const Home = () => {
   const movies = useAppSelector(selectMovies);
   const topRatedMovies = movies.topRatedMovies;
   const upcomingMovies = movies.upcomingMovies;
@@ -20,7 +20,6 @@ const Home = (props: Props) => {
 
   return (
     <>
-      <div className="page-title">Home</div>
       <div className="category-box container">
         <div className="section mb-3">
           <div className="header__section mb-2">

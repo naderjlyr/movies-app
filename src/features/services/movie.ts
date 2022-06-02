@@ -1,6 +1,5 @@
 import {
   MovieRequest,
-  TVRequest,
   CategoryRequest,
   MultiSearchesRequest,
 } from "../../models/interfaces/tmdbRequests";
