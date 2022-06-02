@@ -1,9 +1,13 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
 
-type Props = {};
-
-const Navigation = (props: Props) => {
-  return <div>Navigation</div>;
+const Navigation: React.FC = () => {
+  return (
+    <>
+      <NavLink to="./home">Home</NavLink>
+      <NavLink to="./movie">Movies</NavLink>
+      <NavLink to="./series">TV Series</NavLink>
+    </>
+  );
 };
 
 export default Navigation;

@@ -1,8 +1,15 @@
-import React from "react";
+import "./Footer.scss";
 
-type Props = {};
-
-const Footer = (props: Props) => {
-  return <div>Footer</div>;
+const Footer = () => {
+  return (
+    <>
+      <div className="footer">
+        <div className="author">
+          <h4>Design and Creation by : Naderjlyr</h4>
+        </div>
+      </div>
+    </>
+  );
 };
+
 export default Footer;
