@@ -8,7 +8,7 @@ import { RootState, AppThunk } from "../store";
 import tmdbApi from "../services/movie";
 import { MediaContent } from "../../models/interfaces/movies";
 import { MovieRequest, FetchState } from "../../models/interfaces/tmdbRequests";
-export interface InitialState {
+export interface IFetchMovie {
   popularMovies: MediaContent[];
   topRatedMovies: MediaContent[];
   upcomingMovies: MediaContent[];
@@ -18,7 +18,7 @@ export interface InitialState {
   totalResults: number;
 }
 
-const initialState: InitialState = {
+const initialState: IFetchMovie = {
   popularMovies: [],
   topRatedMovies: [],
   upcomingMovies: [],

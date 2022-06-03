@@ -75,6 +75,50 @@
       font-size: 9px;
     }
   }
+  .movie-buttons {
+    display: flex;
+    position: absolute;
+    font-weight: 600;
+    color: #fff;
+    z-index: 222;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 400ms;
+  }
+  .watchlist-container {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    transition: all 400ms;
+    // filter: invert(17%) sepia(98%) saturate(5645%) hue-rotate(327deg)
+    //   brightness(85%) contrast(108%);
+    filter: invert(100%) sepia(95%) saturate(0%) hue-rotate(90deg)
+      brightness(104%) contrast(104%);
+  }
+  .watchlist-container.watchlist {
+    filter: invert(17%) sepia(98%) saturate(5645%) hue-rotate(327deg)
+      brightness(85%) contrast(108%);
+  }
+  .favorite-container {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    transition: all 400ms;
+    filter: invert(100%) sepia(95%) saturate(0%) hue-rotate(90deg)
+      brightness(104%) contrast(104%);
+    // filter: invert(17%) sepia(98%) saturate(5645%) hue-rotate(327deg)
+    //   brightness(85%) contrast(108%);
+  }
+  .favorite-container.liked {
+    filter: invert(17%) sepia(98%) saturate(5645%) hue-rotate(327deg)
+      brightness(85%) contrast(108%);
+  }
 }
 
 .movie-card > img {
@@ -90,6 +134,10 @@
 .movie-card:hover {
   .movie-card__image {
     transform: scale(1.3);
+  }
+  .movie-buttons {
+    opacity: 1;
+    visibility: visible;
   }
   .movie-card__image::before {
     opacity: 0.8;

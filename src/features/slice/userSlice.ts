@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../store";
 import tmdbApi from "../services/movie";
-export interface InitialState {
+export interface IUserData {
   userId: number;
   username: string;
   password: string;
@@ -15,7 +15,7 @@ export interface InitialState {
   notification: string;
 }
 
-const initialState: InitialState = {
+const initialState: IUserData = {
   userId: 20,
   username: "admin",
   password: "admin",
@@ -28,27 +28,28 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    addToWatchList(state, { payload }) {
+    addRemoveWatchList(state, { payload }) {
       if (state.watchList.indexOf(payload) === -1) {
         state.watchList.push(payload);
-        state.notification = "Movie Added to your Watchlist!";
       } else {
-        state.watchList.filter((movie) => movie !== payload);
-        state.notification = "Movie Removed from your Watchlist!";
+        const newWatchlist = state.watchList.filter(
+          (movie) => movie !== payload
+        );
+        state.watchList = newWatchlist;
+        state.notification = "The Movie Successfully added to your watch list!";
       }
     },
-    addToFavorites(state, { payload }) {
-      state.favorites.push(payload);
+    addRemoveFavorites(state, { payload }) {
+      if (state.favorites.indexOf(payload) === -1) {
+        state.favorites.push(payload);
+      } else {
+        const newFavorites = state.favorites.filter(
+          (movie) => movie !== payload
+        );
+        state.favorites = newFavorites;
+      }
     },
-    removeFromWatchList(state, { payload }) {
-      return {
-        ...state,
-        watchList: [...state.watchList].filter((movie) => movie !== payload),
-      };
-    },
-    removeFromFavorites(state, { payload }) {},
   },
-
   extraReducers: (builder) => {
     // builder
     //   .addCase(fetchMovies.pending, (state) => {
