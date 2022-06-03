@@ -9,9 +9,7 @@ export enum FetchState {
   ERROR = "error",
 }
 
-export interface CategoryRequest {
-  category: "movie" | "tv" | string;
-  id?: number | string;
+export interface SearchRequest {
   page?: number;
   query?: string;
 }

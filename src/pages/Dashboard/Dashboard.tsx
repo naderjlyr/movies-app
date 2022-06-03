@@ -1,54 +1,48 @@
-import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../features/hooks/hooks";
-import { selectMovies, fetchMovies } from "../../features/slice/moviesSlice";
-import { Button } from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
+import { useAppSelector } from "../../features/hooks/hooks";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import "./Dashboard.scss";
 import { selectUser } from "../../features/slice/userSlice";
-import {
-  MediaContent,
-  PopularMoviesResults,
-} from "../../models/interfaces/movies";
-import { IFetchMovie } from "../../features/slice/moviesSlice";
-import { IUserData } from "../../features/slice/userSlice";
+import { MediaContent } from "../../models/interfaces/movies";
 import { RootState } from "../../features/store";
-import { current } from "@reduxjs/toolkit";
-type Props = {};
 
 const Dashboard = () => {
-  const [localStorageMovies, setLocalStorageMovies] = useState<IFetchMovie>();
-  const [localStorageLists, setLocalStorageLists] = useState<IUserData>();
-  const [allMovies, setAllMovies] = useState<MediaContent[]>();
+  const User = useAppSelector(selectUser);
+  const mainWatch = User.watchList;
+  const mainFav = User.favorites;
   const [watchList, setWatchList] = useState<MediaContent[]>();
   const [favorites, setFavorites] = useState<MediaContent[]>();
 
-  const dispatch = useAppDispatch();
+  const fetchLocalStorage = useCallback(async () => {
+    const fromLocalStorage: RootState = await JSON.parse(
+      localStorage.getItem("rtk-persist") || "{}"
+    );
+    let allMovies = fromLocalStorage.movies.popularMovies
+      .concat(
+        fromLocalStorage.movies.topRatedMovies,
+        fromLocalStorage.movies.upcomingMovies
+      )
+      .filter(
+        (value, index, self) =>
+          index ===
+          self.findIndex((t) => t.id === value.id && t.title === value.title)
+      );
+
+    setWatchList(
+      allMovies.filter((movie) =>
+        fromLocalStorage.user.watchList.includes(movie.id)
+      )
+    );
+    setFavorites(
+      allMovies.filter((movie) =>
+        fromLocalStorage.user.favorites.includes(movie.id)
+      )
+    );
+  }, []);
+
   useEffect(() => {
-    let localState: RootState;
-    const fetchLocalStorage = async () => {
-      localState = await JSON.parse(
-        localStorage.getItem("rtk-persist") || "{}"
-      );
-      setLocalStorageMovies(localState.movies);
-      setLocalStorageLists(localState.user);
-      // Concating arrays with duplicates
-      const allMovies = localState.movies.popularMovies.concat(
-        localState.movies.topRatedMovies
-      );
-      setWatchList(
-        allMovies.filter((movie) =>
-          localState.user.watchList.includes(movie.id)
-        )
-      );
-      setFavorites(
-        allMovies.filter((movie) =>
-          localState.user.favorites.includes(movie.id)
-        )
-      );
-    };
     fetchLocalStorage();
-    return () => {};
-  }, [watchList, favorites]);
+  }, [fetchLocalStorage, mainWatch, mainFav]);
 
   return (
     <>
@@ -57,6 +51,7 @@ const Dashboard = () => {
           <div className="header__section mb-2">
             <h2>Your Watch List</h2>
           </div>
+          <div></div>
           <MoviesList moviesType={watchList ? watchList : []} />
         </div>
 
