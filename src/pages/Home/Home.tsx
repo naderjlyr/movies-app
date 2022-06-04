@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../features/hooks/hooks";
-import { selectMovies, fetchMovies } from "../../features/slice/moviesSlice";
 import { Button } from "@mui/material";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import "./Home.scss";

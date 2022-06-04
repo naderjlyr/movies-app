@@ -3,15 +3,18 @@ import { useAppSelector } from "../../features/hooks/hooks";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import "./Dashboard.scss";
 import { selectUser } from "../../features/slice/userSlice";
-import { MediaContent } from "../../models/interfaces/movies";
+import {
+  MediaContent,
+  PopularMoviesResults,
+} from "../../models/interfaces/movies";
 import { RootState } from "../../features/store";
 
 const Dashboard = () => {
   const User = useAppSelector(selectUser);
   const mainWatch = User.watchList;
   const mainFav = User.favorites;
-  const [watchList, setWatchList] = useState<MediaContent[]>();
-  const [favorites, setFavorites] = useState<MediaContent[]>();
+  const [watchList, setWatchList] = useState<PopularMoviesResults[]>();
+  const [favorites, setFavorites] = useState<PopularMoviesResults[]>();
 
   const fetchLocalStorage = useCallback(async () => {
     const fromLocalStorage: RootState = await JSON.parse(
