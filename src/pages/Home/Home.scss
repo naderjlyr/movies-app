@@ -5,3 +5,6 @@
     margin-top: -3rem;
   }
 }
+.pagination-container {
+  @include flex(center, center);
+}

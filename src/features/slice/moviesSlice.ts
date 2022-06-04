@@ -1,10 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { FetchState } from "../../models/interfaces/tmdbRequests";
-import {
-  MediaContent,
-  PopularMoviesResults,
-} from "../../models/interfaces/movies";
+import { PopularMoviesResults } from "../../models/interfaces/movies";
 export interface IFetchMovie {
   popularMovies: PopularMoviesResults[];
   topRatedMovies: PopularMoviesResults[];

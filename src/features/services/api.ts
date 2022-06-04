@@ -1,10 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
-  MediaContent,
   PopularMovies,
   PopularMoviesResults,
 } from "../../models/interfaces/movies";
-import { IFetchMovie } from "../slice/moviesSlice";
 const tmdbConfig = {
   baseUrl: "https://api.themoviedb.org/3/",
   apiKey: "ab8a60c60fd1813653b3b7c93ca1d177",
@@ -18,15 +16,24 @@ export const tmdbSlice = createApi({
   reducerPath: "tmdbApi",
   baseQuery: fetchBaseQuery({ baseUrl: tmdbConfig.baseUrl }),
   endpoints: (builder) => ({
-    getPopularMovies: builder.query<PopularMovies, void>({
-      query: () =>
-        `movie/popular?api_key=${tmdbConfig.apiKey}&language=en-US&page=1`,
+    getPopularMovies: builder.query<
+      PopularMovies<PopularMoviesResults>,
+      number | void
+    >({
+      query: (page = 1) =>
+        `movie/popular?api_key=${tmdbConfig.apiKey}&language=en-US&page=${page}`,
     }),
-    getTopRatedMovies: builder.query<PopularMovies, void>({
+    getTopRatedMovies: builder.query<
+      PopularMovies<PopularMoviesResults>,
+      number | void
+    >({
       query: () =>
         `movie/top_rated?api_key=${tmdbConfig.apiKey}&language=en-US&page=1`,
     }),
-    getUpcomingMovies: builder.query<PopularMovies, void>({
+    getUpcomingMovies: builder.query<
+      PopularMovies<PopularMoviesResults>,
+      number | void
+    >({
       query: () =>
         `movie/upcoming?api_key=${tmdbConfig.apiKey}&language=en-US&page=1`,
     }),

@@ -3,10 +3,7 @@ import { useAppSelector } from "../../features/hooks/hooks";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import "./Dashboard.scss";
 import { selectUser } from "../../features/slice/userSlice";
-import {
-  MediaContent,
-  PopularMoviesResults,
-} from "../../models/interfaces/movies";
+import { PopularMoviesResults } from "../../models/interfaces/movies";
 import { RootState } from "../../features/store";
 
 const Dashboard = () => {

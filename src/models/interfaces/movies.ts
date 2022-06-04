@@ -15,11 +15,12 @@ export interface PopularMoviesResults {
   video: boolean;
   vote_average: number;
 }
-export interface PopularMovies {
+export interface PopularMovies<T> {
   page: number;
-  results: PopularMoviesResults[];
+  results: T[];
   total_results: number;
   total_pages: number;
+  per_page: number;
 }
 
 export interface MediaContent {

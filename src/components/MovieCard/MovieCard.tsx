@@ -54,7 +54,7 @@ const MovieCard: React.FC<IMovieCard> = ({ movie }) => {
     // console.log(favoriteElement);
     if (e.currentTarget?.classList.contains("watchlist-container")) {
       dispatch(userActions.addRemoveWatchList(movie.id));
-      console.log("watchlist");
+      console.log(movie.id);
     }
     if (e.currentTarget?.classList.contains("favorite-container")) {
       dispatch(userActions.addRemoveFavorites(movie.id));
