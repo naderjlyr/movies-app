@@ -6,20 +6,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import {
-  MediaContent,
-  PopularMovies,
-  PopularMoviesResults,
-} from "../../models/interfaces/movies";
-import { useAppSelector } from "../../features/hooks/hooks";
-import { selectMovies } from "../../features/slice/moviesSlice";
+import { PopularMoviesResults } from "../../models/interfaces/movies";
 import MovieCard from "../MovieCard/MovieCard";
 interface IMoviesList {
   moviesType: PopularMoviesResults[];
 }
 const MoviesList: FC<IMoviesList> = ({ moviesType }) => {
-  const [loading, setLoading] = React.useState<boolean>(true);
-
   const renderMovieItems = moviesType.map((movie) => {
     return (
       <SwiperSlide key={movie.id}>

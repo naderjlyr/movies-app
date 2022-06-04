@@ -3,7 +3,7 @@ import {
   PopularMovies,
   PopularMoviesResults,
 } from "../../models/interfaces/movies";
-const tmdbConfig = {
+export const tmdbConfig = {
   baseUrl: "https://api.themoviedb.org/3/",
   apiKey: "ab8a60c60fd1813653b3b7c93ca1d177",
   originalImage: (imagePath: string | null) =>
@@ -37,11 +37,19 @@ export const tmdbSlice = createApi({
       query: () =>
         `movie/upcoming?api_key=${tmdbConfig.apiKey}&language=en-US&page=1`,
     }),
+    searchMovie: builder.query<
+      PopularMovies<PopularMoviesResults>,
+      string | void
+    >({
+      query: (searchQuery: string) =>
+        `search/movie?api_key=${tmdbConfig.apiKey}&language=en-US&query=${searchQuery}&page=1`,
+    }),
   }),
 });
-
+// https://api.themoviedb.org/3/search/movie?api_key=ab8a60c60fd1813653b3b7c93ca1d177&language=en-US&query=something&page=1&include_adult=false
 export const {
   useGetPopularMoviesQuery,
   useGetTopRatedMoviesQuery,
   useGetUpcomingMoviesQuery,
+  useSearchMovieQuery,
 } = tmdbSlice;

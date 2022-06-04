@@ -7,46 +7,49 @@ import { PopularMoviesResults } from "../../models/interfaces/movies";
 import { RootState } from "../../features/store";
 
 const Dashboard = () => {
-  const User = useAppSelector(selectUser);
-  const mainWatch = User.watchList;
-  const mainFav = User.favorites;
-  const [watchList, setWatchList] = useState<PopularMoviesResults[]>();
-  const [favorites, setFavorites] = useState<PopularMoviesResults[]>();
+  const user = useAppSelector(selectUser);
+  const mainWatch = user.watchList;
 
-  const fetchLocalStorage = useCallback(async () => {
-    const fromLocalStorage: RootState = await JSON.parse(
-      localStorage.getItem("rtk-persist") || "{}"
-    );
-    let allMovies = fromLocalStorage.movies.popularMovies
-      .concat(
-        fromLocalStorage.movies.topRatedMovies,
-        fromLocalStorage.movies.upcomingMovies
-      )
-      .filter(
-        (value, index, self) =>
-          index ===
-          self.findIndex((t) => t.id === value.id && t.title === value.title)
-      );
+  console.log(mainWatch);
 
-    setWatchList(
-      allMovies.filter((movie) =>
-        fromLocalStorage.user.watchList.includes(movie.id)
-      )
-    );
-    setFavorites(
-      allMovies.filter((movie) =>
-        fromLocalStorage.user.favorites.includes(movie.id)
-      )
-    );
-  }, []);
+  // const mainFav = User.favorites;
+  // const [watchList, setWatchList] = useState<PopularMoviesResults[]>();
+  // const [favorites, setFavorites] = useState<PopularMoviesResults[]>();
 
-  useEffect(() => {
-    fetchLocalStorage();
-  }, [fetchLocalStorage, mainWatch, mainFav]);
+  // const fetchLocalStorage = useCallback(async () => {
+  //   const fromLocalStorage: RootState = await JSON.parse(
+  //     localStorage.getItem("rtk-persist") || "{}"
+  //   );
+  //   let allMovies = fromLocalStorage.movies.popularMovies
+  //     .concat(
+  //       fromLocalStorage.movies.topRatedMovies,
+  //       fromLocalStorage.movies.upcomingMovies
+  //     )
+  //     .filter(
+  //       (value, index, self) =>
+  //         index ===
+  //         self.findIndex((t) => t.id === value.id && t.title === value.title)
+  //     );
+
+  //   setWatchList(
+  //     allMovies.filter((movie) =>
+  //       fromLocalStorage.user.watchList.includes(movie.id)
+  //     )
+  //   );
+  //   setFavorites(
+  //     allMovies.filter((movie) =>
+  //       fromLocalStorage.user.favorites.includes(movie.id)
+  //     )
+  //   );
+  // }, []);
+
+  // useEffect(() => {
+  //   fetchLocalStorage();
+  // }, [fetchLocalStorage, mainWatch, mainFav]);
 
   return (
     <>
-      <div className="category-box container">
+      {/* <div className="category-box container">
         <div className="section mb-3">
           <div className="header__section mb-2">
             <h2>Your Watch List</h2>
@@ -61,7 +64,7 @@ const Dashboard = () => {
           </div>
           <MoviesList moviesType={favorites ? favorites : []} />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

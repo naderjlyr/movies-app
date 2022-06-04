@@ -5,7 +5,6 @@ import {
   current,
 } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../store";
-import tmdbApi from "../services/movie";
 export interface IUserData {
   userId: number;
   username: string;

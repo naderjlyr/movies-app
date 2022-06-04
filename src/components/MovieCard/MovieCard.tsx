@@ -1,6 +1,5 @@
 import { MouseEvent, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../features/hooks/hooks";
-import { selectLoadingStatus } from "../../features/slice/moviesSlice";
 import {
   MediaContent,
   PopularMoviesResults,
@@ -8,7 +7,7 @@ import {
 import { FetchState } from "../../models/interfaces/tmdbRequests";
 import { Link } from "react-router-dom";
 import "./MovieCard.scss";
-import tmdbConfig from "../../api/tmdbConfig";
+import { tmdbConfig } from "../../features/services/api";
 import addToListSVG from "../../assets/images/playlist-add.svg";
 import addToListCheckSVG from "../../assets/images/playlist-add-check.svg";
 import heartSVG from "../../assets/images/heart.svg";
@@ -20,7 +19,6 @@ interface IMovieCard {
 }
 
 const MovieCard: React.FC<IMovieCard> = ({ movie }) => {
-  const loadingStatus = useAppSelector(selectLoadingStatus);
   const [watchList, setWatchList] = useState<boolean>(false);
   const [favorite, setFavorite] = useState<boolean>(false);
   const urlRegex = /\s|:/g;
@@ -62,54 +60,34 @@ const MovieCard: React.FC<IMovieCard> = ({ movie }) => {
   };
   return (
     <>
-      {loadingStatus === FetchState.SUCCESS ? (
-        <div>
-          <div className="movie-card">
-            <div
-              className="movie-card__image"
-              style={{ backgroundImage: `url(${cardBackground})` }}
-            ></div>
-            <div className="movie-buttons">
-              <img
-                src={`${watchList ? addToListCheckSVG : addToListSVG}`}
-                className={`watchlist-container ${
-                  watchList ? "watchlist" : ""
-                }`}
-                onClick={addToListHandler}
-                alt="add to Watch Later List"
-              />
-              <img
-                src={`${favorite ? heartFillSVG : heartSVG}`}
-                className={`favorite-container ${favorite ? "liked" : ""}`}
-                onClick={addToListHandler}
-                alt="Add to Favorties"
-              />
-            </div>
-            <div className="movie-card__release">
-              <p>{movie?.release_data?.split("-")[0]}</p>
-            </div>
+      <div>
+        <div className="movie-card">
+          <div
+            className="movie-card__image"
+            style={{ backgroundImage: `url(${cardBackground})` }}
+          ></div>
+          <div className="movie-buttons">
+            <img
+              src={`${watchList ? addToListCheckSVG : addToListSVG}`}
+              className={`watchlist-container ${watchList ? "watchlist" : ""}`}
+              onClick={addToListHandler}
+              alt="add to Watch Later List"
+            />
+            <img
+              src={`${favorite ? heartFillSVG : heartSVG}`}
+              className={`favorite-container ${favorite ? "liked" : ""}`}
+              onClick={addToListHandler}
+              alt="Add to Favorties"
+            />
           </div>
-          <div className="movie-card__title">
-            <h5>{movie.title ?? movie.title}</h5>
+          <div className="movie-card__release">
+            <p>{movie?.release_data?.split("-")[0]}</p>
           </div>
         </div>
-      ) : (
-        ""
-        // <>
-        //   <Skeleton
-        //     variant="rectangular"
-        //     width={width}
-        //     height={height}
-        //     sx={{ borderRadius: "10px" }}
-        //   />
-        //   <Skeleton
-        //     variant="rectangular"
-        //     width={width}
-        //     height={mobileScreen ? 24 : 12}
-        //     sx={{ marginTop: "0.6rem", borderRadius: 1 }}
-        //   />
-        // </>
-      )}
+        <div className="movie-card__title">
+          <h5>{movie.title ?? movie.title}</h5>
+        </div>
+      </div>
     </>
   );
 };
