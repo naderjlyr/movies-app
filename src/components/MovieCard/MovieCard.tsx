@@ -16,7 +16,7 @@ import heartFillSVG from "../../assets/images/heart-fill.svg";
 import { selectUser, userActions } from "../../features/slice/userSlice";
 import { useEffect, useState } from "react";
 interface IMovieCard {
-  movie: MediaContent;
+  movie: PopularMoviesResults;
 }
 
 const MovieCard: React.FC<IMovieCard> = ({ movie }) => {
@@ -86,11 +86,11 @@ const MovieCard: React.FC<IMovieCard> = ({ movie }) => {
               />
             </div>
             <div className="movie-card__release">
-              <p>{movie?.release_date?.split("-")[0]}</p>
+              <p>{movie?.release_data?.split("-")[0]}</p>
             </div>
           </div>
           <div className="movie-card__title">
-            <h5>{movie.title ?? movie.name}</h5>
+            <h5>{movie.title ?? movie.title}</h5>
           </div>
         </div>
       ) : (

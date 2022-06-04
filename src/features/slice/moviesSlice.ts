@@ -7,7 +7,11 @@ import {
 import { RootState, AppThunk } from "../store";
 import tmdbApi from "../services/movie";
 import { MediaContent } from "../../models/interfaces/movies";
-import { MovieRequest, FetchState } from "../../models/interfaces/tmdbRequests";
+import {
+  MovieRequest,
+  FetchState,
+  SearchRequest,
+} from "../../models/interfaces/tmdbRequests";
 export interface IFetchMovie {
   popularMovies: MediaContent[];
   topRatedMovies: MediaContent[];
@@ -35,33 +39,39 @@ export const fetchMovies = createAsyncThunk(
     return response.data;
   }
 );
+export const searchMovies = createAsyncThunk(
+  "movies/searchMovies",
+  async (request: SearchRequest, thunkApi) => {
+    const response = await tmdbApi.search(request);
+    return response.data;
+  }
+);
 export const moviesSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {},
 
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchMovies.pending, (state) => {
-        state.status = FetchState.LOADING;
-      })
-      .addCase(fetchMovies.fulfilled, (state, { payload, meta }) => {
-        state.status = FetchState.SUCCESS;
-        if (meta.arg.type === "popular") {
-          state.popularMovies = payload.results;
-        } else if (meta.arg.type === "upcoming") {
-          state.upcomingMovies = payload.results;
-        } else if (meta.arg.type === "top_rated") {
-          state.topRatedMovies = payload.results;
-        }
-        state.totalPages = payload.total_pages;
-        state.totalResults = payload.total_results;
-        console.log(current(state));
-      })
-      .addCase(fetchMovies.rejected, (state, action) => {
-        state.status = FetchState.ERROR;
-        // state.errorMessage = action.payload.error;
-      });
+    builder.addCase(fetchMovies.pending, (state) => {
+      state.status = FetchState.LOADING;
+    });
+    builder.addCase(fetchMovies.fulfilled, (state, { payload, meta }) => {
+      state.status = FetchState.SUCCESS;
+      if (meta.arg.type === "popular") {
+        state.popularMovies = payload.results;
+      } else if (meta.arg.type === "upcoming") {
+        state.upcomingMovies = payload.results;
+      } else if (meta.arg.type === "top_rated") {
+        state.topRatedMovies = payload.results;
+      }
+      state.totalPages = payload.total_pages;
+      state.totalResults = payload.total_results;
+      console.log(current(state));
+    });
+    builder.addCase(fetchMovies.rejected, (state, action) => {
+      state.status = FetchState.ERROR;
+      // state.errorMessage = action.payload.error;
+    });
   },
 });
 export const selectMovies = (state: RootState) => state.movies;

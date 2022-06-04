@@ -6,7 +6,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import tmdbApi from "../../api/tmdbApi";
 import {
   MediaContent,
   PopularMovies,
@@ -16,7 +15,7 @@ import { useAppSelector } from "../../features/hooks/hooks";
 import { selectMovies } from "../../features/slice/moviesSlice";
 import MovieCard from "../MovieCard/MovieCard";
 interface IMoviesList {
-  moviesType: MediaContent[];
+  moviesType: PopularMoviesResults[];
 }
 const MoviesList: FC<IMoviesList> = ({ moviesType }) => {
   const [loading, setLoading] = React.useState<boolean>(true);
