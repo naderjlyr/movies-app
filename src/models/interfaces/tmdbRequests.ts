@@ -14,12 +14,6 @@ export interface SearchRequest {
   query?: string;
 }
 
-// export interface EpisodeDetailsRequest {
-//   tv_id: number;
-//   season_number: number;
-//   episode_number: number;
-// }
-
 export interface MultiSearchesRequest {
   page: number;
   query: string;

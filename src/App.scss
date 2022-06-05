@@ -88,3 +88,8 @@ iframe {
 img {
   color: red;
 }
+
+.trailer-button {
+  @include flex(center, center);
+  background-color: $primary-color;
+}

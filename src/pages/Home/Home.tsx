@@ -1,10 +1,4 @@
-import {
-  Button,
-  Pagination,
-  Skeleton,
-  OutlinedInput,
-  FormControl,
-} from "@mui/material";
+import { Skeleton, OutlinedInput, FormControl } from "@mui/material";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import "./Home.scss";
 import {
@@ -13,21 +7,29 @@ import {
   useGetUpcomingMoviesQuery,
   useSearchMovieQuery,
 } from "../../features/services/api";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import SearchResult from "../../components/SearchResult/SearchResult";
-import CustomSkeleton from "../../components/Skeleton/CustomSkeleton";
 import { useDebounce } from "use-debounce";
+import SearchOutlined from "@mui/icons-material";
 const Home = () => {
   const [page, setPage] = useState<number>(1);
   const [skip, setSkip] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
-  const { data: popularMovies, isLoading: popularLoading } =
-    useGetPopularMoviesQuery(page);
-  const { data: topRatedMovies, isLoading: topRatedLoading } =
-    useGetTopRatedMoviesQuery();
+  const {
+    data: popularMovies,
+    isLoading: popularLoading,
+    isSuccess: popularSucces,
+  } = useGetPopularMoviesQuery(page);
+  const {
+    data: topRatedMovies,
+    isLoading: topRatedLoading,
+    isSuccess: topRatedSuccess,
+  } = useGetTopRatedMoviesQuery(page, { skip: !popularSucces });
   const { data: upcomingMovies, isLoading: upcomingLoading } =
-    useGetUpcomingMoviesQuery();
+    useGetUpcomingMoviesQuery(page, {
+      skip: !topRatedSuccess,
+    });
 
   const {
     data: searchResult,
@@ -38,16 +40,12 @@ const Home = () => {
     skip: debouncedSearchQuery === "",
   });
 
-  const handleOnChangePage = (e: unknown, value: number) => {
-    setPage(value);
-  };
   const handleSearch = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setSearchQuery(event.currentTarget.value);
     setSkip((prev) => !prev);
   };
-  console.log(searchedForMovie);
   return (
     <>
       <div className="category-box container">
@@ -80,27 +78,12 @@ const Home = () => {
               <Skeleton animation={false} />
             </>
           )}
-          <div className="pagination-container">
-            {/* <Pagination
-              count={
-                popularMovies?.total_pages ? popularMovies?.total_pages / 10 : 1
-              }
-              page={page}
-              color="standard"
-              onChange={handleOnChangePage}
-            /> */}
-          </div>
+          <div className="pagination-container"></div>
         </div>
 
         <div className="section mb-3">
           <div className="header__section mb-2">
             <h2>Upcoming Movies</h2>
-            {/* <Button
-              variant="outlined"
-              sx={{ fontWeight: 600, textTransform: "initial" }}
-            >
-              View more
-            </Button> */}
           </div>
           <MoviesList
             moviesType={upcomingMovies?.results ? upcomingMovies.results : []}
@@ -110,12 +93,6 @@ const Home = () => {
         <div className="section mb-3">
           <div className="header__section mb-2">
             <h2>Top Rated Movies</h2>
-            {/* <Button
-              variant="outlined"
-              sx={{ fontWeight: 600, textTransform: "initial" }}
-            >
-              View more
-            </Button> */}
           </div>
           <MoviesList
             moviesType={topRatedMovies?.results ? topRatedMovies.results : []}

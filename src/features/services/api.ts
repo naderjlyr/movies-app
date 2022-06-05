@@ -2,6 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   PopularMovies,
   PopularMoviesResults,
+  RequestTrailer,
+  Trailer,
 } from "../../models/interfaces/movies";
 export const tmdbConfig = {
   baseUrl: "https://api.themoviedb.org/3/",
@@ -27,15 +29,15 @@ export const tmdbSlice = createApi({
       PopularMovies<PopularMoviesResults>,
       number | void
     >({
-      query: () =>
-        `movie/top_rated?api_key=${tmdbConfig.apiKey}&language=en-US&page=1`,
+      query: (page = 1) =>
+        `movie/top_rated?api_key=${tmdbConfig.apiKey}&language=en-US&page=${page}`,
     }),
     getUpcomingMovies: builder.query<
       PopularMovies<PopularMoviesResults>,
       number | void
     >({
-      query: () =>
-        `movie/upcoming?api_key=${tmdbConfig.apiKey}&language=en-US&page=1`,
+      query: (page = 1) =>
+        `movie/upcoming?api_key=${tmdbConfig.apiKey}&language=en-US&page=${page}`,
     }),
     searchMovie: builder.query<
       PopularMovies<PopularMoviesResults>,
@@ -44,12 +46,16 @@ export const tmdbSlice = createApi({
       query: (searchQuery: string) =>
         `search/movie?api_key=${tmdbConfig.apiKey}&language=en-US&query=${searchQuery}&page=1`,
     }),
+    getTrailer: builder.query<RequestTrailer<Trailer>, number | void>({
+      query: (movieId: number) =>
+        `movie/${movieId}/videos?api_key=${tmdbConfig.apiKey}`,
+    }),
   }),
 });
-// https://api.themoviedb.org/3/search/movie?api_key=ab8a60c60fd1813653b3b7c93ca1d177&language=en-US&query=something&page=1&include_adult=false
 export const {
   useGetPopularMoviesQuery,
   useGetTopRatedMoviesQuery,
   useGetUpcomingMoviesQuery,
   useSearchMovieQuery,
+  useGetTrailerQuery,
 } = tmdbSlice;
