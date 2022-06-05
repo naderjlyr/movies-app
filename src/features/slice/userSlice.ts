@@ -4,13 +4,14 @@ import {
   PayloadAction,
   current,
 } from "@reduxjs/toolkit";
+import { PopularMoviesResults } from "../../models/interfaces/movies";
 import { RootState, AppThunk } from "../store";
 export interface IUserData {
   userId: number;
   username: string;
   password: string;
-  watchList: number[];
-  favorites: number[];
+  watchList: PopularMoviesResults[];
+  favorites: PopularMoviesResults[];
   notification: string;
 }
 
@@ -28,25 +29,24 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addRemoveWatchList(state, { payload }) {
-      if (state.watchList.indexOf(payload) === -1) {
+      if (!state.watchList.some((movie) => movie.id === payload.id)) {
         state.watchList.push(payload);
-      } else {
-        const newWatchlist = state.watchList.filter(
-          (movie) => movie !== payload
-        );
-        state.watchList = newWatchlist;
-        state.notification = "The Movie Successfully added to your watch list!";
+        return;
       }
+      const newWatchlist = state.watchList.filter(
+        (movie) => movie.id !== payload.id
+      );
+      state.watchList = newWatchlist;
     },
     addRemoveFavorites(state, { payload }) {
-      if (state.favorites.indexOf(payload) === -1) {
+      if (!state.favorites.some((movie) => movie.id === payload.id)) {
         state.favorites.push(payload);
-      } else {
-        const newFavorites = state.favorites.filter(
-          (movie) => movie !== payload
-        );
-        state.favorites = newFavorites;
+        return;
       }
+      const newFavoriteList = state.watchList.filter(
+        (movie) => movie.id !== payload.id
+      );
+      state.favorites = newFavoriteList;
     },
   },
   extraReducers: (builder) => {

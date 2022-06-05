@@ -35,10 +35,10 @@ const MovieCard: React.FC<IMovieCard> = ({ movie }) => {
 
   useEffect(() => {
     const classChecker = () => {
-      if (user.watchList.find((id) => id === movie.id)) {
+      if (user.watchList.find((watchMovie) => watchMovie.id === movie.id)) {
         setWatchList((prev) => !prev);
       }
-      if (user.favorites.find((id) => id === movie.id)) {
+      if (user.favorites.find((favMovie) => favMovie.id === movie.id)) {
         setFavorite((prev) => !prev);
       }
     };
@@ -49,13 +49,11 @@ const MovieCard: React.FC<IMovieCard> = ({ movie }) => {
   }, [user.watchList, user.favorites, movie.id]);
 
   const addToListHandler = (e: MouseEvent) => {
-    // console.log(favoriteElement);
     if (e.currentTarget?.classList.contains("watchlist-container")) {
-      dispatch(userActions.addRemoveWatchList(movie.id));
-      console.log(movie.id);
+      dispatch(userActions.addRemoveWatchList(movie));
     }
     if (e.currentTarget?.classList.contains("favorite-container")) {
-      dispatch(userActions.addRemoveFavorites(movie.id));
+      dispatch(userActions.addRemoveFavorites(movie));
     }
   };
   return (
