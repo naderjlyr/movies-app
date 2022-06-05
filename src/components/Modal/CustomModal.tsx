@@ -32,8 +32,6 @@ const CustomModal = ({ movieId, toggleOpen, open }: ModalProps) => {
             <Fade in={open}>
               <Box className="trailer-container">
                 <iframe
-                  width="420"
-                  height="315"
                   src={`https://www.youtube.com/embed/${firstTrailer?.key}`}
                   title={firstTrailer?.name}
                 />{" "}

@@ -10,7 +10,6 @@ import {
 import { ChangeEvent, useState } from "react";
 import SearchResult from "../../components/SearchResult/SearchResult";
 import { useDebounce } from "use-debounce";
-import SearchOutlined from "@mui/icons-material";
 const Home = () => {
   const [page, setPage] = useState<number>(1);
   const [skip, setSkip] = useState<boolean>(true);
@@ -26,19 +25,14 @@ const Home = () => {
     isLoading: topRatedLoading,
     isSuccess: topRatedSuccess,
   } = useGetTopRatedMoviesQuery(page, { skip: !popularSucces });
-  const { data: upcomingMovies, isLoading: upcomingLoading } =
-    useGetUpcomingMoviesQuery(page, {
-      skip: !topRatedSuccess,
-    });
-
-  const {
-    data: searchResult,
-    isSuccess: searchedForMovie,
-    isFetching,
-    isError,
-  } = useSearchMovieQuery(debouncedSearchQuery, {
-    skip: debouncedSearchQuery === "",
+  const { data: upcomingMovies } = useGetUpcomingMoviesQuery(page, {
+    skip: !topRatedSuccess,
   });
+
+  const { data: searchResult, isSuccess: searchedForMovie } =
+    useSearchMovieQuery(debouncedSearchQuery, {
+      skip: debouncedSearchQuery === "",
+    });
 
   const handleSearch = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

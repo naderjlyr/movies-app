@@ -6,6 +6,18 @@
   }
 }
 
+@mixin mobile-screen {
+  @media only screen and (max-width: $mobile-screen-width) {
+    @content;
+  }
+}
+
+@mixin tablet-screen {
+  @media only screen and (max-width: $tablet-screen-width) {
+    @content;
+  }
+}
+
 @mixin tablet {
   @media only screen and (max-width: $tablet-width) {
     @content;

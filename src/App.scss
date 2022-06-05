@@ -34,9 +34,9 @@ body {
   background-color: $body-bg;
   color: $primary-text-color;
 
-  // @include mobile {
-  //   margin-bottom: 3rem;
-  // }
+  @include mobile-screen {
+    margin-bottom: 3rem;
+  }
 }
 
 a {
