@@ -4,6 +4,8 @@ import AppRoutes from "./config/AppRoutes";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { store } from "./features/store";
+import { Provider } from "react-redux";
 
 const darkTheme = createTheme({
   palette: {
@@ -21,5 +23,9 @@ function App() {
     </ThemeProvider>
   );
 }
-
-export default App;
+const AppWrapper = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+export default AppWrapper;

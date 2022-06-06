@@ -60,7 +60,11 @@ const MovieCard: React.FC<IMovieCard> = ({ movie }) => {
   return (
     <>
       <div>
-        <div className="movie-card" id={String(movie.id)}>
+        <div
+          className="movie-card"
+          id={String(movie.id)}
+          data-testid={movie.id}
+        >
           <div
             className="movie-card__image"
             style={{ backgroundImage: `url(${cardBackground})` }}
@@ -80,7 +84,7 @@ const MovieCard: React.FC<IMovieCard> = ({ movie }) => {
             />
           </div>
           <div className="movie-card__release">
-            <p>{movie?.release_data?.split("-")[0]}</p>
+            <p>{movie?.release_date?.split("-")[0]}</p>
           </div>
         </div>
         <Button

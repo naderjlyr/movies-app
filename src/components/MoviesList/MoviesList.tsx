@@ -1,16 +1,17 @@
 import React, { FC } from "react";
 import "./MoviesList.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import SwiperCore, { Navigation } from "swiper";
+import "swiper/swiper-bundle.min.css";
+import "swiper/swiper.min.css";
 
 import { PopularMoviesResults } from "../../models/interfaces/movies";
 import MovieCard from "../MovieCard/MovieCard";
 interface IMoviesList {
   moviesType: PopularMoviesResults[];
 }
+SwiperCore.use([Navigation]);
+
 const MoviesList: FC<IMoviesList> = ({ moviesType }) => {
   const renderMovieItems = moviesType.map((movie) => {
     return (
@@ -21,12 +22,7 @@ const MoviesList: FC<IMoviesList> = ({ moviesType }) => {
   });
   return (
     <div className="movies-list">
-      <Swiper
-        modules={[Navigation]}
-        navigation
-        spaceBetween={15}
-        slidesPerView={3}
-      >
+      <Swiper navigation spaceBetween={15} slidesPerView={3}>
         {renderMovieItems}
       </Swiper>
     </div>

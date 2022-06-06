@@ -1,4 +1,4 @@
-import { Skeleton, OutlinedInput, FormControl } from "@mui/material";
+import { OutlinedInput, FormControl } from "@mui/material";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import "./Home.scss";
 import {
@@ -10,6 +10,7 @@ import {
 import { ChangeEvent, useState } from "react";
 import SearchResult from "../../components/SearchResult/SearchResult";
 import { useDebounce } from "use-debounce";
+import CustomSkeleton from "../../components/Skeleton/CustomSkeleton";
 const Home = () => {
   const [page, setPage] = useState<number>(1);
   const [skip, setSkip] = useState<boolean>(true);
@@ -18,14 +19,18 @@ const Home = () => {
   const {
     data: popularMovies,
     isLoading: popularLoading,
-    isSuccess: popularSucces,
+    isSuccess: popularSuccess,
   } = useGetPopularMoviesQuery(page);
   const {
     data: topRatedMovies,
     isLoading: topRatedLoading,
     isSuccess: topRatedSuccess,
-  } = useGetTopRatedMoviesQuery(page, { skip: !popularSucces });
-  const { data: upcomingMovies } = useGetUpcomingMoviesQuery(page, {
+  } = useGetTopRatedMoviesQuery(page, { skip: !popularSuccess });
+  const {
+    data: upcomingMovies,
+    isSuccess: upcomingSuccess,
+    isLoading: upcomingLoading,
+  } = useGetUpcomingMoviesQuery(page, {
     skip: !topRatedSuccess,
   });
 
@@ -61,36 +66,40 @@ const Home = () => {
             <h2>Trending Movie</h2>
           </div>
 
-          {!popularLoading ? (
-            <MoviesList
-              moviesType={popularMovies?.results ? popularMovies.results : []}
-            />
+          {popularSuccess ? (
+            <MoviesList moviesType={popularMovies.results} />
           ) : (
             <>
-              <Skeleton />
-              <Skeleton animation="wave" />
-              <Skeleton animation={false} />
+              <div>Failed to fetch movies!</div>
+              <CustomSkeleton />
             </>
           )}
-          <div className="pagination-container"></div>
         </div>
 
         <div className="section mb-3">
           <div className="header__section mb-2">
             <h2>Upcoming Movies</h2>
           </div>
-          <MoviesList
-            moviesType={upcomingMovies?.results ? upcomingMovies.results : []}
-          />
+          {upcomingSuccess ? (
+            <MoviesList moviesType={upcomingMovies.results} />
+          ) : (
+            <>
+              <CustomSkeleton />
+            </>
+          )}
         </div>
 
         <div className="section mb-3">
           <div className="header__section mb-2">
             <h2>Top Rated Movies</h2>
           </div>
-          <MoviesList
-            moviesType={topRatedMovies?.results ? topRatedMovies.results : []}
-          />
+          {topRatedSuccess ? (
+            <MoviesList moviesType={topRatedMovies.results} />
+          ) : (
+            <>
+              <CustomSkeleton />
+            </>
+          )}
         </div>
       </div>
     </>

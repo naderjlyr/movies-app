@@ -4,8 +4,8 @@ export interface PopularMoviesResults {
   poster_path: string | null;
   adult: boolean;
   overview: string;
-  release_data: string;
-  genre_ids: [number];
+  release_date: string;
+  genre_ids: number[];
   id: number;
   original_language: string;
   title: string;
