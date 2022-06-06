@@ -38,7 +38,7 @@ export const userSlice = createSlice({
         state.favorites.push(payload);
         return;
       }
-      const newFavoriteList = state.watchList.filter(
+      const newFavoriteList = state.favorites.filter(
         (movie) => movie.id !== payload.id
       );
       state.favorites = newFavoriteList;

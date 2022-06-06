@@ -22,9 +22,8 @@ const MoviesList: FC<IMoviesList> = ({ moviesType }) => {
   return (
     <div className="movies-list">
       <Swiper
-        modules={[Navigation, Pagination]}
+        modules={[Navigation]}
         navigation
-        pagination={{ clickable: true }}
         spaceBetween={15}
         slidesPerView={3}
       >

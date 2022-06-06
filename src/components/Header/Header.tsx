@@ -1,13 +1,9 @@
 import "./header.scss";
 import Logo from "../../assets/images/logo.svg";
 import Navigation from "./Navigation";
-import { useMediaQuery } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 const Header: React.FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
-  const tabletScreen = useMediaQuery("(min-width:1024px)");
-  const mobileScreen = useMediaQuery("(min-width:600px)");
-  const [isOpeningMenu, setOpeningMenu] = useState<boolean>(false);
   useEffect(() => {
     const shrinkHeader = () => {
       if (
@@ -24,10 +20,6 @@ const Header: React.FC = () => {
       window.removeEventListener("scroll", shrinkHeader);
     };
   }, []);
-
-  const editOpenMenu = (open: boolean) => {
-    setOpeningMenu(open);
-  };
 
   return (
     <div className="header" ref={headerRef}>

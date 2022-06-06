@@ -53,7 +53,7 @@ const Home = () => {
             />
           </FormControl>
           {searchedForMovie && (
-            <SearchResult>
+            <SearchResult searchedPhrase={debouncedSearchQuery}>
               <MoviesList moviesType={searchResult.results} />
             </SearchResult>
           )}
