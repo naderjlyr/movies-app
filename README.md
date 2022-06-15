@@ -5,9 +5,9 @@ I deployed the application on firebase.
 
 ## Data
 
-- [x] The Data is being fetched as requested from themoviedb api.
+- [x] The Data is being fetched from themoviedb api.
 
-## Functionality (All the main functionalities are covered)
+## Functionality
 
 - [x] A search field and like a table for showing the result.
 - [x] It should also have functionality for setting movies as your favourites, maybe with a star symbol in the table.
